@@ -5,7 +5,7 @@
         <div class="panel panel-default" v-clock>
             <div class="panel-heading">
                 <div class="clearfix">
-                    <span class="panel-title">Create Invoice</span>
+                    <span class="panel-title">Edit Invoice</span>
                     <a href="{{ route('invoices.index') }}" class="btn btn-default pull-right">Back</a>
                 </div>
             </div>
@@ -14,7 +14,7 @@
             </div>
             <div class="panel-footer">
                 <a href="{{ route('invoices.index') }}" class="btn btn-default">CANCEL</a>
-                <button class="btn btn-success" @click="create" :disabled="isProcessing">CREATE</button>
+                <button class="btn btn-success" @click="update" :disabled="isProcessing">UPDATE</button>
             </div>
         </div>
     </div>
@@ -27,20 +27,7 @@
 <script>
     Vue.http.headers.common['X-CSRF-TOKEN'] = '{{csrf_token()}}';
 
-    window._form = {
-        invoice_no : '',
-        client: '',
-        client_address: '',
-        title: '',
-        invoice_date: '',
-        due_date: '',
-        discount: 0,
-        products: [{
-            name: '',
-            price: 0,
-            qty: 1
-        }]
-    };
+    window._form = {!! $invoice->toJson() !!}
 </script>
 <script src="/assets/js/app.js"></script>
 @endpush

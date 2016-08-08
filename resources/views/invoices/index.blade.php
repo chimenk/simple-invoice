@@ -16,7 +16,7 @@
                 <th>Client</th>
                 <th>Invoice Date</th>
                 <th>Due Date</th>
-                <th colspan="2">Created At</th>
+                <th>Created At</th>
             </thead>
             <tbody>
                 @foreach($invoices as $invoice)
@@ -27,6 +27,15 @@
                     <td>{{ $invoice->invoice_date }}</td>
                     <td>{{ $invoice->due_date }}</td>
                     <td>{{ $invoice->created_at->diffForHumans() }}</td>
+                    <td class="text-right">
+                        <a href="{{ route('invoices.show', $invoice)}}" class="btn btn-default btn-sm">View</a>
+                        <a href="{{ route('invoices.edit', $invoice)}}" class="btn btn-primary btn-sm">Edit</a>
+                        <form class="form-inline" action="{{ route('invoices.destroy', $invoice) }}" method="POST" onSubmit="return confirm('Are you sure?')">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <input type="hidden" name="_method" value="delete">
+                            <input type="submit" value="Delete" class="btn btn-danger btn-sm">
+                        </form>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
